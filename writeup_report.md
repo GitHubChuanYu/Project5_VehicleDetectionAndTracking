@@ -23,7 +23,7 @@ The goals / steps of this project are the following:
 [image6]: ./output_images/heatmap.jpg
 [image7]: ./output_images/UpdatedHeatMap.jpg
 [image8]: ./output_images/AllTestImagesCarDetect.jpg
-[video1]: ./project_video.mp4
+[image9]: ./output_images/LargeScaleFactor.jpg
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
@@ -94,7 +94,7 @@ For example, here I limit the searching area to a small area close to far away h
 
 And in contrast, I increas the seaching area to a large area close to camera (**ystart = 405**, **y_stop = 600**),  and use a large scale factor as **2** and test on one video image, the result is pretty good with several large overlapped boxes to cover the car:
 
-![alt text][image4]
+![alt text][image9]
 
 #### 2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
