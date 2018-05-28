@@ -75,10 +75,20 @@ Besides that, I also tried to combine color spatial and histogram features. And 
 
 I think this is good result.
 
+The code is in 10th cell in ipynb file [Project5_Pineline.ipynb](https://github.com/GitHubChuanYu/Project5_VehicleDetectionAndTracking/blob/master/Project5_Pipeline.ipynb).
+
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
 I have trained a linear SVM classifier using above mentioned HOG features plus color spatial and histogram feataures. The code is in 12th cell in ipynb file [Project5_Pineline.ipynb](https://github.com/GitHubChuanYu/Project5_VehicleDetectionAndTracking/blob/master/Project5_Pipeline.ipynb). And I tried to tune the parameter C for linear SVM and found out a smaller C value (0.001) would give a higher test accuracy to **0.9904**.
 
+All the training features are scaled to zero mean and unit variance before training the classifier using this code here:
+```Python
+# Fit a per-column scaler
+X_scaler = StandardScaler().fit(X_train)
+# Apply the scaler to X
+X_train = X_scaler.transform(X_train)
+X_test = X_scaler.transform(X_test)
+```
 
 ### Sliding Window Search
 
