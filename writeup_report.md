@@ -111,7 +111,7 @@ Here is the link to my video output [project_video_output_mem.mp4](https://githu
 
 #### 2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. 
 
 Here's an example result showing the image of combined bounding boxes for car, heatmap of the combined bounding boxes, updated heatmap after applying threshold, and updated heatmap repplied to the original image for identifying cars.
 
@@ -127,11 +127,23 @@ Here's an example result showing the image of combined bounding boxes for car, h
 
 ### Here are final results of all test images with applied heatmap thresholding filters:
 ![alt text][image8]
+
+For the final processing of project video, I have also applied a techinque to combine and average the heatmaps of several conseutive frames in the video, this is helping to filter out false positives further and also to make the detection of cars more stable and consistent while the car is moving. The code is in function **image_processing_mem**, the code is displayed here:  
+```Python
+if len(history.history) >= 7:
+    history.history = history.history[1:]
+    
+history.history.append(heat)
+heat_history = reduce(lambda h, acc: h + acc, history.history)/7
+    
+heat = apply_threshold(heat_history, 3)
+```
 ---
 
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+During implementation of this project, the main problem I have is to compromise between getting rid of false positives and getting fitting and stable detection boxes of cars. If I reduce the heatmap threshold value, then I can get better fitting and detection boxes of car but also have more false positives. However if the heatmap threshold value is large, then I have less false positives but with not very good fitting boxes (always small and sometimes none) to detect cars. 
 
+If I have time in the future, I am interested to learn new ways to automatically find the better compromised parameters to both get rid of false positive effectively and also have a better fitting boxes to detect cars.
