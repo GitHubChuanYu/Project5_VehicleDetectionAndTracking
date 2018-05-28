@@ -16,7 +16,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 [image1]: ./output_images/car_not_car.jpg
-[image2]: ./output_images/HOG_example.jpg
+[image2]: ./output_images/HOG_Example_1.jpg
 [image3]: ./examples/sliding_windows.jpg
 [image4]: ./examples/sliding_window.jpg
 [image5]: ./examples/bboxes_and_heat.png
@@ -46,14 +46,23 @@ I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an 
 
 I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
 
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
+Here is an example using the G channel in `RGB` color space and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
 
 ![alt text][image2]
 
 #### 2. Explain how you settled on your final choice of HOG parameters.
 
-I tried various combinations of parameters and...
+I tried various combinations of parameters and here are the results for training these HOG features with different combinations of parameters using Linear SVC (C=1):
+
+| Parameter Configurations        |  Linear SVC (C=1) Training Results  | 
+|:-------------:|:-------------:| 
+| ColorSpace: RGB; Orient: 9; PixPerCell: 8; CellPerBlock: 2; HOG Channel: ALL   | Time: 44.79s; Accuracy: 0.922         | 
+| ColorSpace: HSV; Orient: 9; PixPerCell: 8; CellPerBlock: 2; HOG Channel: ALL   | Time: 31.87s; Accuracy: 0.9555         | 
+| ColorSpace: LUV; Orient: 9; PixPerCell: 8; CellPerBlock: 2; HOG Channel: ALL   | Time: 22.31s; Accuracy: 0.9665         | 
+| ColorSpace: HLS; Orient: 9; PixPerCell: 8; CellPerBlock: 2; HOG Channel: ALL   | Time: 28.45s; Accuracy: 0.9533         |
+| ColorSpace: YUV; Orient: 9; PixPerCell: 8; CellPerBlock: 2; HOG Channel: ALL   | Time: 21.52s; Accuracy: 0.9651         | 
+| ColorSpace: YCrCb; Orient: 9; PixPerCell: 8; CellPerBlock: 2; HOG Channel: ALL   | Time: 21.03s; Accuracy: 0.9685         | 
 
 #### 3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
 
